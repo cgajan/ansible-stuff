@@ -1,16 +1,16 @@
 # Advanced Selection with Ansible
 
-Recently I started to work with Ansible, specialy to implement automation for storage provisioning. To provision a resource in a infrastructure, the process will probably always be roughly the same:
+Recently I started to work with Ansible, especialy to implement automation for storage provisioning. To provision a resource in a infrastructure, the process will probably always be roughly the same:
 
 - collecting environment information
 - run selection criteria on these environment information to select the right target for the provisioning
 - finally create the new resource on the selected target
 
-In recent time, more and more Software and Infrastructure providers are offering Ansible modules to collecte information and to create resources on their systems. NetApp was one of the first, with its set of official modules available in Ansible Galaxy (https://galaxy.ansible.com/netapp).
+In recent time, more and more software and infrastructure providers are offering Ansible modules to collect information and to create resources on their systems. NetApp was one of the first, with its set of official modules available in Ansible Galaxy (https://galaxy.ansible.com/netapp).
 
-Ansible module and espacialy module which collect environment information return structured output in json format. When required selection criteria are simple, Ansible provide nativaly data filtering feature based on Jinja2 template filters (https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html) and json query and JMESPath (https://jmespath.org/) which allow us to implement these simple criteria.
+Ansible module and espacially module which collect environment information return structured output in json format. When required selection criteria are simple, Ansible provides natively data filtering feature based on Jinja2 template filters (https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html) and json query and JMESPath (https://jmespath.org/) which allow us to implement these simple criteria.
 
-However, when selection criteria become complex, it is difficult to use these filtering methods especialy when criteria apply on joins of several data sources.
+However, when selection criteria become complex, it is difficult to use these filtering methods especially when criteria apply on joins of several data sources.
 
 To try to make the selection stage easier, I developed a couple of simple Ansible modules which allow to use SQL queries on multiple environment information sources.
 
@@ -38,7 +38,7 @@ Now let's see how easy it is to use it:
      when: aggr_list is defined
 ```
 	 
-The first time the module is called the `db` parameter is omitted an so the module create a new db file returned in the `db_info` variable. The `table` parameter specify the table name to be created in the DB. The `structure` parameter define the schema of the table (column name and type and if it is a primary key). Finally the `records` parameter provide a list of table row entries to fill the table.
+The first time the module is called the `db` parameter is omitted an so the module creates a new db file returned in the `db_info` variable. The `table` parameter specifies the table name to be created in the DB. The `structure` parameter defines the schema of the table (column name and type and if it is a primary key). Finally the `records` parameter provides a list of table row entries to fill the table.
 
 ```
 - name: Store Volume Info in DB
@@ -89,7 +89,7 @@ When all needed environment information are collected in the DB, we can run our 
   when: db_info is defined
 ```
 
-The `db` parameter reference the embedded DB previously created and filled. The `query` parameter define the SQL query to run and the result will be stored in the `selected_volume` variable.
+The `db` parameter references the embedded DB previously created and filled. The `query` parameter defines the SQL query to run and the result will be stored in the `selected_volume` variable.
 
 After running all the needed selection SQL queries the embedded DB can be deleted:
 
